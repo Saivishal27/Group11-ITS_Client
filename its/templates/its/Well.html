@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Wells</title>
+    <style>
+
+      #map {
+        height: 100%;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    .button {
+    background-color: #59d5d8;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+    </style>
+  </head>
+  <body>
+  
+<article>
+  <header>
+    <a href="{% url 'Farm' %}" class="button">Farms</a>
+<a href="{% url 'House' %}" class="button">Houses</a>
+<a href="{% url 'Well' %}" class="button">Wells</a>
+  </header>
+</article>
+    <div id="map"></div>
+<p id="demo"></p>
+    <script>
+
+
+      var map;
+      var infoWindow;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 18,
+          center: {lat: 13.5242, lng:79.9958},
+          mapTypeId: 'terrain'
+        });
+
+  //latitude and longitude of wells
+
+   var lat={{well_lats}};
+  var long={{well_lons}};
+  var well_id={{well_id}};
+  var well_props={{well_props}};
+  var image = 'https://image.ibb.co/ettnOk/well2.png';
+  long.forEach(function(element,index)
+  {
+
+    var marker = new google.maps.Marker({
+          position: {lat: lat[index], lng:long[index] },
+              map: map,
+          icon: image
+    });
+    marker.addListener('click', (event)=>{
+
+      //var contentString = '<b>'+'Well Id: ' + '</b>' + well_id[index]+'<br>' + '<b>'+ 'Well Depth: '  + '</b>' + well_props[index][0] + 'meters' +'<br>' + '<b>'+ 'Well Yield: ' + '</b>' + well_props[index][1] + 'Ltrs'+ '<br>';
+      var contentString ="<iframe style='border:none;' height='400' src='/static/its/3dwell2.html?l="+well_props[index][0]+"&w="+well_id[index]+"&y="+well_props[index][1]+"'></iframe>";
+      infoWindow.setContent(contentString);
+      infoWindow.setPosition(event.latLng);
+      infoWindow.open(map);
+    });
+  });
+  //Farms data(shape)
+  //var A=[[13.5244,13.5244,13.5240,13.5240,13.5244],[13.5230,13.5230,13.5234,13.5234,13.5230]];
+  var A={{lat}};
+  var B={{lon}};
+  var farm_id={{farm_id}};
+  var farm_area={{farm_area}};
+
+
+    B.forEach(function(element,index){
+    coords = [];
+    var x = element.length;
+    for(var j=0;j<x;j++)
+    {
+      coords.push({lat:A[index][j],lng:B[index][j]});
+    }
+    console.log(coords);
+    var bermudaTriangle = new google.maps.Polygon({
+        paths: coords,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+        fillColor: '#FF0000',
+        fillOpacity: 0
+    });
+          bermudaTriangle.setMap(map);
+    bermudaTriangle.addListener('click', (event)=>{
+
+      var contentString = '<b>'+'Farm Id:'+'</b>' + farm_id[index] + '<br>' + '<b>'+'Farm Area:' + '</b>'+ farm_area[index] + 'acres' + '<br>';
+      infoWindow.setContent(contentString);
+      infoWindow.setPosition(event.latLng);
+      infoWindow.open(map);
+    });
+
+  });
+        infoWindow = new google.maps.InfoWindow;
+      }
+
+
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC89u1SmkUMOVrW6QhxDIs2U0Pwuuei4ws&callback=initMap">
+    </script>
+  </body>
+</html>

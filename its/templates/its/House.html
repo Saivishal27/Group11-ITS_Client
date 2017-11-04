@@ -1,0 +1,113 @@
+<html>
+
+<title>Households</title>
+
+<style>
+#map {
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+}
+    .button {
+    background-color: #59d5d8;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>
+<body>
+<article>
+  <header>
+    <a href="{% url 'Farm' %}" class="button">Farms</a>
+<a href="{% url 'House' %}" class="button">Houses</a>
+<a href="{% url 'Well' %}" class="button">Wells</a>
+  </header>
+</article>
+<div id="map"></div>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC89u1SmkUMOVrW6QhxDIs2U0Pwuuei4ws&callback=initMap">
+</script>
+<script>
+ var infoWindow;
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+    center: {lat: 13.5232, lng: 79.9982}
+  });
+ 
+  var lat={{lat}};
+  var long={{lon}};
+  var house_id={{house_id}};
+  var mi={{mi}};
+  var persons={{persons|safe}};
+  var person_count={{person_count}};
+  var links={{image_links|safe}};
+  //var image = 'http://www.elkcity.com/img/fatcow16/house.png';
+  var ur;
+  //var x=50;
+	long.forEach(function(element,index)
+	{
+	    var ur;
+	    if (mi[index]>10000)
+	        ur='#FF000'
+	    else if(mi[index]<5000)
+	        ur='#0000FF';
+	    else
+	        ur='#00FF00';
+	    var x=person_count[index]*10;
+	   /* var image = {
+            //url: 'http://www.elkcity.com/img/fatcow16/house.png', // url
+            url: ur,
+            scaledSize: new google.maps.Size(x, x), // scaled size
+            origin: new google.maps.Point(0,0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };*/
+    var img='<img src=';
+    img=img.concat('"');
+		var img1=img.concat(links[index]);
+		img1=img1.concat('"');
+		var img2=img1.concat('alt="11" border="0" height="100" width="100" />');
+          var marker = new google.maps.Circle({
+            strokeColor: ur,
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: ur,
+            fillOpacity: 0.40,
+            map: map,
+            center: {lat: lat[index], lng:long[index] },
+            radius: x*3
+          });
+        
+      
+
+		/*var marker = new google.maps.Marker({
+    			position: {lat: lat[index], lng:long[index] },
+   		        map: map,
+    			icon: image
+ 	 	});*/
+		marker.addListener('click', (event)=>{
+
+			var contentString = '<b>'+ 'HouseId: ' + '</b>'+ house_id[index] + '<br>' + '<b>'+ 'Monthly income: ' + '</b>' + mi[index] + '<br>' +'<b>'+ 'House members: ' + '</b>' + persons[index] + '<br>' +img2;//'<img src="https://image.ibb.co/km9FYw/11.jpg" alt="11" border="0" height="100" width="100" />';
+			infoWindow.setContent(contentString);
+			infoWindow.setPosition(event.latLng);
+			infoWindow.open(map);
+		});
+	});
+
+ infoWindow = new google.maps.InfoWindow;
+}
+</script>
+</body>
+</html>
+

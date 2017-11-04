@@ -1,0 +1,303 @@
+<html>
+<head>
+<style>
+body {
+  font-family: Lato, sans-serif;
+  font-weight: 300; 
+  letter-spacing: 0.025rem;
+  font-size: 12px;
+  color: gray;
+  padding: 50px;
+}
+
+/*Body*/
+.Cylindre {  
+  overflow: hidden;
+  position: relative;
+  width: 120px;
+  height: 230px;
+  margin: 20px auto;
+  box-shadow: 0 0 0 1px rgba(128,128,128, 0.15) inset;
+  background: linear-gradient(90deg, rgba(128,128,128, 0.2) 0%, rgba(128,128,128, 0.2) 20%, rgba(128,128,128, 0.2) 20%, transparent 50%, transparent 75%, rgba(128,128,128, 0.2) 90%);
+  border-radius: 60px/30px;
+  /*background-color: rgba(120,120,120,.5);*/
+  /*background-image: linear-gradient(90deg,  rgba(0,0,0,.3) 0%, 
+		                transparent 25%,rgba(0,0,0,.3) 50%);*/
+  /*box-shadow: 0 0 0 1px rgba(255, 255, 255, .2) inset, 
+		          0 1px 5px 1px rgba(0, 0, 0, .45) inset;*/
+}
+
+.Cylindre:after {
+  content: '';
+  position: absolute;
+  width: 32%;
+  left: 33%;
+  top: 1px;
+  height: 6%;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius: 60px/25px;
+  background-color: rgba(128,128,128,.6);
+  box-shadow: 0 0 0 1px rgba(128,128,128,.6);
+}
+.Cylindre:before {
+  content: '';
+  position: absolute;
+  width: 92%;
+  top: 78%;
+  bottom: 0;
+  height: 20%;
+  left: 5px;
+  right: 5px;
+  border-radius: 60px/25px;
+  background-color: rgba(255,200,0,1);
+  background-color: rgba(128,128,128,.5);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.35);
+}
+
+
+/*Liquid*/
+.NiMH {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  height: 0;
+  padding-top: 30px;
+  border-radius: 54px/24px;
+  background-color: rgba(255,200,0,1);
+  background: linear-gradient(90deg, rgba(0, 204, 0,.6) 0%, rgba(0, 170, 0, .6) 50%, rgba(0, 204, 0,.6) 100%);
+  box-shadow: 0 0 10px #00cc00;
+  transition: 0.5s linear;
+  /*background-image:linear-gradient(90degre, #00aa00 0%,  #0c0 40%, #00aa00 100%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .2) inset, 
+		          0 1px 5px 1px rgba(0, 0, 0, .45) inset;
+  
+  rgba(168, 168, 0,1)
+  rgb(255, 204, 0,1)
+  
+  */
+}
+.NiMH:after {
+  content: '';
+  position: absolute;
+  left: .5%;
+  right: 0;
+  top: 0;
+  width: 99%;
+  height: 50px;
+  border-radius: 54px/25px;
+  background-color: rgba(0, 170, 0, .35); /*(only dealer*/
+  box-shadow: 0 0 10px #00cc00 inset;
+  /*background-color: rgba(255,232,63,.9);
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, .2) inset, 
+		          0 1px 5px 1px rgba(0, 0, 0, .45) inset*/
+}
+
+/*Empty - 0% - 20% - (Red)*/
+.cath_0:checked  ~ .Cylindre .NiMH {
+  background: linear-gradient(90deg, rgba(255, 0, 0,.8) 0%, rgba(195, 0, 0,.6) 50%, rgba(255, 0, 0,.8) 100%);
+  box-shadow: 0 0 10px #ff0000;
+  height: 18.55px;
+}
+.cath_1:checked  ~ .Cylindre .NiMH {
+  background: linear-gradient(90deg, rgba(255, 0, 0,.8) 0%, rgba(195, 0, 0,.6) 50%, rgba(255, 0, 0,.8) 100%);
+  box-shadow: 0 0 10px #ff0000;
+  height: calc(190px * .1);
+}
+.cath_2:checked  ~ .Cylindre .NiMH {
+  background: linear-gradient(90deg, rgba(255, 0, 0,.8) 0%, rgba(195, 0, 0,.6) 50%, rgba(255, 0, 0,.8) 100%);
+  box-shadow: 0 0 10px #ff0000;
+  height: calc(190px * .2);
+}
+.cath_3:checked  ~ .Cylindre .NiMH {
+  background: linear-gradient(90deg, rgba(255, 0, 0,.8) 0%, rgba(195, 0, 0,.6) 50%, rgba(255, 0, 0,.8) 100%);
+  box-shadow: 0 0 10px #ff0000;
+  height: calc(190px * .3);
+}
+
+ /*40% - 60% - (Yellow)*/
+.cath_4:checked  ~ .Cylindre .NiMH {
+  background: linear-gradient(90deg, rgba(255, 204, 0,.7) 0%, rgba(204, 163, 0,.6) 50%, rgba(255, 204, 0,.7) 100%);
+  box-shadow: 0 0 10px #ffcc00;
+  height: calc(190px * .4);
+}
+.cath_5:checked  ~ .Cylindre .NiMH {
+  background: linear-gradient(90deg, rgba(255, 204, 0,.7) 0%, rgba(204, 163, 0,.6) 50%, rgba(255, 204, 0,.7) 100%);
+  box-shadow: 0 0 10px #ffcc00;
+  height: calc(190px * .5);
+}
+.cath_6:checked  ~ .Cylindre .NiMH {
+  background: linear-gradient(90deg, rgba(255, 204, 0,.7) 0%, rgba(204, 163, 0,.6) 50%, rgba(255, 204, 0,.7) 100%);
+  box-shadow: 0 0 10px #ffcc00;
+  height: calc(190px * .6);
+}
+.cath_7:checked  ~ .Cylindre .NiMH {
+  background: linear-gradient(90deg, rgba(255, 204, 0,.7) 0%, rgba(204, 163, 0,.6) 50%, rgba(255, 204, 0,.7) 100%);
+  box-shadow: 0 0 10px #ffcc00;
+  height: calc(190px * .7);
+}
+/* 80% - 100% - (Green)*/
+.cath_8:checked  ~ .Cylindre .NiMH {
+  height: calc(190px * .8);
+}
+.cath_9:checked ~ .Cylindre .NiMH {
+  height: 190px;
+}
+
+</style>
+</head>
+<body>
+<input type="radio" class="cath_1"  id="r1" name="r">
+<input type="radio" class="cath_2"  id="r2" name="r">
+<input type="radio" class="cath_3"  id="r3" name="r">
+<input type="radio" class="cath_4"  id="r4" name="r">
+<input type="radio" class="cath_5"  id="r5" name="r">
+<input type="radio" class="cath_6"  id="r6" name="r">
+<input type="radio" class="cath_7"  id="r7" name="r">
+<input type="radio" class="cath_8"  id="r8" name="r">
+<input type="radio" class="cath_9"  id="r9" name="r">
+
+<div class="Cylindre">
+	<div class="NiMH"></div>
+</div>
+<p id="well"></p>
+<script type="text/javascript">
+  function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable)
+               {
+                return pair[1];
+               }
+       }
+       return(false);
+}
+var depth=getQueryVariable("l");
+var wellid=getQueryVariable("w");
+document.getElementById("well").innerHTML=wellid;
+if(0<depth && depth<=100){
+  document.getElementById('r1').checked=true;
+  document.getElementById('r1').style.display="none";
+  document.getElementById('r2').style.display="none";
+  document.getElementById('r3').style.display="none";
+  document.getElementById('r4').style.display="none";
+  document.getElementById('r5').style.display="none";
+  document.getElementById('r6').style.display="none";
+  document.getElementById('r7').style.display="none";
+  document.getElementById('r8').style.display="none";
+  document.getElementById('r9').style.display="none";
+}
+if(100<depth && depth<=200){
+  document.getElementById('r2').checked=true;
+  document.getElementById('r1').style.display="none";
+  document.getElementById('r2').style.display="none";
+  document.getElementById('r3').style.display="none";
+  document.getElementById('r4').style.display="none";
+  document.getElementById('r5').style.display="none";
+  document.getElementById('r6').style.display="none";
+  document.getElementById('r7').style.display="none";
+  document.getElementById('r8').style.display="none";
+  document.getElementById('r9').style.display="none";
+}
+if(200<depth && depth<=300){
+  document.getElementById('r3').checked=true;
+  document.getElementById('r1').style.display="none";
+  document.getElementById('r2').style.display="none";
+  document.getElementById('r3').style.display="none";
+  document.getElementById('r4').style.display="none";
+  document.getElementById('r5').style.display="none";
+  document.getElementById('r6').style.display="none";
+  document.getElementById('r7').style.display="none";
+  document.getElementById('r8').style.display="none";
+  document.getElementById('r9').style.display="none";
+}
+if(300<depth && depth<=400){
+  document.getElementById('r4').checked=true;
+  document.getElementById('r1').style.display="none";
+  document.getElementById('r2').style.display="none";
+  document.getElementById('r3').style.display="none";
+  document.getElementById('r4').style.display="none";
+  document.getElementById('r5').style.display="none";
+  document.getElementById('r6').style.display="none";
+  document.getElementById('r7').style.display="none";
+  document.getElementById('r8').style.display="none";
+  document.getElementById('r9').style.display="none";
+}
+if(400<depth && depth<=500){
+  document.getElementById('r5').checked=true;
+  document.getElementById('r1').style.display="none";
+  document.getElementById('r2').style.display="none";
+  document.getElementById('r3').style.display="none";
+  document.getElementById('r4').style.display="none";
+  document.getElementById('r5').style.display="none";
+  document.getElementById('r6').style.display="none";
+  document.getElementById('r7').style.display="none";
+  document.getElementById('r8').style.display="none";
+  document.getElementById('r9').style.display="none";
+}
+if(500<depth && depth<=600){
+  document.getElementById('r6').checked=true;
+  document.getElementById('r1').style.display="none";
+  document.getElementById('r2').style.display="none";
+  document.getElementById('r3').style.display="none";
+  document.getElementById('r4').style.display="none";
+  document.getElementById('r5').style.display="none";
+  document.getElementById('r6').style.display="none";
+  document.getElementById('r7').style.display="none";
+  document.getElementById('r8').style.display="none";
+  document.getElementById('r9').style.display="none";
+}
+if(600<depth && depth<=700){
+  document.getElementById('r7').checked=true;
+  document.getElementById('r1').style.display="none";
+  document.getElementById('r2').style.display="none";
+  document.getElementById('r3').style.display="none";
+  document.getElementById('r4').style.display="none";
+  document.getElementById('r5').style.display="none";
+  document.getElementById('r6').style.display="none";
+  document.getElementById('r7').style.display="none";
+  document.getElementById('r8').style.display="none";
+  document.getElementById('r9').style.display="none";
+}
+if(700<depth && depth<=800){
+  document.getElementById('r7').checked=true;
+  document.getElementById('r1').style.display="none";
+  document.getElementById('r2').style.display="none";
+  document.getElementById('r3').style.display="none";
+  document.getElementById('r4').style.display="none";
+  document.getElementById('r5').style.display="none";
+  document.getElementById('r6').style.display="none";
+  document.getElementById('r7').style.display="none";
+  document.getElementById('r8').style.display="none";
+  document.getElementById('r9').style.display="none";
+}
+if(800<depth && depth<=900){
+  document.getElementById('r8').checked=true;
+  document.getElementById('r1').style.display="none";
+  document.getElementById('r2').style.display="none";
+  document.getElementById('r3').style.display="none";
+  document.getElementById('r4').style.display="none";
+  document.getElementById('r5').style.display="none";
+  document.getElementById('r6').style.display="none";
+  document.getElementById('r7').style.display="none";
+  document.getElementById('r8').style.display="none";
+  document.getElementById('r9').style.display="none";
+}
+if(900<depth && depth<=1000){
+  document.getElementById('r9').checked=true;
+  document.getElementById('r1').style.display="none";
+  document.getElementById('r2').style.display="none";
+  document.getElementById('r3').style.display="none";
+  document.getElementById('r4').style.display="none";
+  document.getElementById('r5').style.display="none";
+  document.getElementById('r6').style.display="none";
+  document.getElementById('r7').style.display="none";
+  document.getElementById('r8').style.display="none";
+  document.getElementById('r9').style.display="none";
+}
+</script>
+</body>
+</html>

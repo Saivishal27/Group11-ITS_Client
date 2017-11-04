@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Farms</title>
+    <link href="http://code.google.com//apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css">
+    <script  src="http://code.jquery.com/jquery-1.7.2.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.10&sensor=false&.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi?.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+    .button {
+    background-color: #59d5d8;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 30%;
+}
+form{
+    text-align: center;
+}
+</style>
+</head>
+
+<title>Farms</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- bootstrap-css -->
+<link href="/static/its/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<!--// bootstrap-css -->
+<!-- css -->
+<link rel="stylesheet" href="/static/its/css/style.css" type="text/css" media="all" />
+<!--// css -->
+<!-- font-awesome icons -->
+<link href="/static/its/css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons -->
+<!-- font -->
+<link href="//fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+<!-- //font -->
+<!-- light-box -->
+<link rel="stylesheet" href="css/lightbox.css">
+<!-- //light-box -->
+<script src="/static/its/js/jquery-1.11.1.min.js"></script>
+<script src="/static/its/js/bootstrap.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script> 
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+	<!-- banner -->
+	<div class="banner">
+		<div class="header">
+			<div class="container">
+				<div class="header-left">
+					<div class="w3layouts-logo">
+						<h1>
+							<a href="index.html">Raithu <span>Mitra</span></a>
+						</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header-bottom">
+			<div class="container">
+				<div class="top-nav">
+						<nav class="navbar navbar-default">
+								<div class="navbar-header">
+									<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+										<span class="sr-only">Toggle navigation</span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+							<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+								<ul class="nav navbar-nav">
+									<li><a href="index.html">Home</a></li>
+									<li><a href="about.html">Houses</a></li>
+									<li><a class="active" href="gallery.html">Farms</a></li>
+									<li class="dropdown">
+										<a href="codes.html" class="dropdown-toggle" data-hover="Pages" data-toggle="dropdown">Wells<b class="caret"></b></a>
+										<ul class="dropdown-menu">
+											<li><a href="icons.html">Icons</a></li>
+											<li><a href="codes.html">Short Codes</a></li>
+										</ul>
+									</li>
+									<li><a href="contact.html">Contact</a></li>
+								</ul>	
+								<div class="clearfix"> </div>
+							</div>	
+						</nav>		
+				</div>
+				<!-- agileits-top-heading -->
+				<div class="agileits-top-heading">
+					<h2>Farms</h2>
+				</div>
+				<!-- //agileits-top-heading -->
+			</div>
+		</div>
+<div class="container">
+  <form class="form-inline" action ="{% url 'Farm' %}" method="GET">
+    <div class="form-group">
+    <label >ID</label>
+    <select name="farmid" class="form-control" placeholder="Farm id">
+        <option value="" disabled selected>Select ID</option>
+        {% for val in f_ids %}
+        <option value="{{val}}">{{val}}</option>
+        {%endfor%}
+    </select>
+    <input type="submit" value="Submit">
+    </div>
+    </form>
+    </div><br><br>
+	</div>
+	<!-- //banner -->
+	<!--gallery-->
+
+
+<div id="map_canvas" style="width: 100%; height: 70%;"></div>
+    
+    <script type="text/javascript">
+        google.load( 'visualization', '1', { packages:['corechart'] });
+        ChartMarker.prototype = new google.maps.OverlayView;
+        ChartMarker.prototype.onAdd = function() {
+            $( this.getPanes().overlayMouseTarget ).append( this.$div );
+        };
+
+        ChartMarker.prototype.onRemove = function() {
+            this.$div.remove();
+        };
+
+        ChartMarker.prototype.draw = function() {
+            var marker = this;
+            var projection = this.getProjection();
+            var position = projection.fromLatLngToDivPixel( this.get('position') );
+
+            this.$div.css({
+                left: position.x,
+                top: position.y,
+                display: 'block'
+            })
+
+            this.$inner
+                    .html( '<img src="' + this.get('image') + '"/>' )
+                    .click( function( event ) {
+                        var events = marker.get('events');
+                        events && events.click( event );
+                    });
+
+            this.chart = new google.visualization.PieChart( this.$inner[0] );
+            this.chart.draw( this.get('chartData'), this.get('chartOptions') );
+        };
+
+
+        function drawChart(marker, data, event, location) {
+
+
+            var options = {'title':'Event : '+event+'  Location : '+location,
+                'width':300,
+                'height':300,
+                slices: {0: {color: 'blue'}, 1:{color: 'red'}, 2:{color: 'orange'}, 3: {color: 'green'}, 4:{color: 'purple'}}};
+
+            var node        = document.createElement('div'),
+                    infoWindow  = new google.maps.InfoWindow(),
+                    chart       = new google.visualization.PieChart(node);
+            chart.draw(data, options);
+            infoWindow.setContent(node);
+            infoWindow.open(marker.getMap(),marker);
+        }
+        function ChartMarker( options ) {
+            this.setValues( options );
+            this.$inner = $('<div>').css({
+                position: 'relative',
+                left: '-50%', top: '-50%',
+                width: options.width,
+                height: options.height,
+                fontSize: '1px',
+                lineHeight: '1px',
+                padding: '2px',
+                backgroundColor: 'transparent',
+                cursor: 'default'
+            });
+            this.$div = $('<div>')
+                    .append( this.$inner )
+                    .css({
+                        position: 'absolute',
+                        display: 'none'
+                    });
+        };
+      var infoWindow;
+        function initialize() {
+            var flag={{flag}};
+            if (flag==1)
+                var latLng = new google.maps.LatLng({{lat.0.0}},{{lon.0.0}})
+            else
+                var latLng = new google.maps.LatLng(13.5242, 79.9958)
+           /* var markers = [
+                [ 13.5245, 79.9957, 50,40,21,40,20],
+        [13.5236,79.9957,2,1,1,1,1],
+
+            ];*/
+            var markers={{farm_attr}};
+            var mapOptions = {
+                center: latLng,
+                zoom: 18,
+                mapTypeId: google.maps.MapTypeId.HYBRID
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"),
+                    mapOptions);
+
+    var A={{lat}};
+  var B={{lon}};
+  var farm_id={{farm_id}};
+  var farm_area={{farm_area}};
+  var images={{image_link|safe}};
+
+        B.forEach(function(element,index){
+    coords = [];
+    var x = element.length;
+    for(var j=0;j<x;j++)
+    {
+      coords.push({lat:A[index][j],lng:B[index][j]});
+    }
+    console.log(coords);
+    var bermudaTriangle = new google.maps.Polygon({
+        paths: coords,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+        fillColor: '#FF0000',
+        fillOpacity: 0
+    });
+          bermudaTriangle.setMap(map);
+    bermudaTriangle.addListener('click', (event)=>{
+        var img='<img src=';
+    img=img.concat('"');
+        var img1=img.concat(images[index]);
+        img1=img1.concat('"');
+        var img2=img1.concat('alt="11" border="0" height="100" width="100" />');
+      var contentString = '<b>'+'Farm Id:'+'</b>' + farm_id[index] + '<br>' + '<b>'+'Farm Area:' + '</b>'+ farm_area[index] + 'acres' + '<br>' + img2;
+      infoWindow.setContent(contentString);
+      infoWindow.setPosition(event.latLng);
+      infoWindow.open(map);
+    });
+
+  });
+        infoWindow = new google.maps.InfoWindow;
+
+            for(var k=0;k<markers.length;k++){
+                var location = new google.maps.LatLng(markers[k][0],markers[k][1])
+                var data = google.visualization.arrayToDataTable([
+                    [ 'Crop', 'Acres' ],
+                    [ 'Rice', markers[k][2] ],
+                    [ 'Wheat', markers[k][3] ],
+                    [ 'Maize',markers[k][4] ],
+                    [ 'SugarCane', markers[k][5] ],
+                    [ 'Barley', markers[k][6] ]
+                ]);
+                var options = {
+                    fontSize: 8,
+                    backgroundColor: 'transparent',
+                    legend: {position: 'none'}
+                };
+                (function(location,data){
+    var marker = new ChartMarker({
+                        map: map,
+                        position: location,
+                        width: '100px',
+                        height: '100px',
+                        chartData: data,
+                        chartOptions: options,
+                        events: {
+                            click: function( event ) {
+                                drawChart(marker,data)
+                            }
+                        }
+                    });
+
+})(location,data);
+            }
+        };
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+	
+				<div class="clearfix"> </div>
+				<script src="js/lightbox-plus-jquery.min.js"> </script>
+			</div>	
+		</div>	
+	</div>	
+	<!--//gallery-->
+	<!-- footer -->
+	<footer>
+		<div class="container">
+			<div class="w3-agileits-footer-grids">
+				<div class="col-md-3 w3ls-footer-grid">
+					<h4>About <span>Raithu Mitra</span></h4>
+					<div class="wthree-footer-info">
+						<p>Hello</p>
+						<ul>
+							<li><i class="fa fa-map-marker" aria-hidden="true"></i> : Sricity Chittoor 517541.</li>
+							<li><i class="fa fa-phone" aria-hidden="true"></i> : 123</li>
+							<li><i class="fa fa-envelope" aria-hidden="true"></i> : <a href="mailto:info@example.com">mail@example.com</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 w3ls-footer-grid">
+					<h4>Recent <span>Posts</span></h4>
+					<div class="agile-post-grids">
+						<div class="agile-post-grid">
+							<div class="col-md-5 agile-post-left">
+								<a href="single.html">
+									<img src="/static/its/images/p1.jpg" alt="" />
+								</a>
+							</div>
+							<div class="col-md-7 agile-post-right">
+								<h5><a href="single.html">1.</a></h5>
+								<p><i class="fa fa-calendar-o" aria-hidden="true"></i> 03 Jan 2017</p>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="agile-post-grid">
+							<div class="col-md-5 agile-post-left">
+								<a href="single.html">
+									<img src="/static/its/images/p2.jpg" alt="" />
+								</a>
+							</div>
+							<div class="col-md-7 agile-post-right">
+								<h5><a href="single.html">2.</a></h5>
+								<p><i class="fa fa-calendar-o" aria-hidden="true"></i> 24 Jan 2017</p>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 w3ls-footer-grid">
+					<h4>Our <span>Navigation</span></h4>
+					<ul>
+						<li><a href="about.html">House</a></li>
+						<li><a href="gallery.html">Farms</a></li>
+						<li><a href="icons.html">Wells</a></li>
+						<li><a href="codes.html">Short Codes</a></li>
+						<li><a href="contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 w3ls-footer-grid">
+					<h4>Farm <span>Images</span></h4>
+					<div class="w3l-footer-popular">
+						<div class="popular-grids">
+							<div class="popular-grid">
+								<a href="single.html"><img src="/static/its/images/p1.jpg" alt=""></a>
+							</div>
+							<div class="popular-grid">
+								<a href="single.html"><img src="/static/its/images/p2.jpg" alt=""></a>
+							</div>
+							<div class="popular-grid">
+								<a href="single.html"><img src="/static/its/images/p3.jpg" alt=""></a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="popular-grids">
+							<div class="popular-grid">
+								<a href="single.html"><img src="/static/its/images/p4.jpg" alt=""></a>
+							</div>
+							<div class="popular-grid">
+								<a href="single.html"><img src="/static/its/images/p1.jpg" alt=""></a>
+							</div>
+							<div class="popular-grid">
+								<a href="single.html"><img src="/static/its/images/p2.jpg" alt=""></a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="popular-grids">
+							<div class="popular-grid">
+								<a href="single.html"><img src="/static/its/images/p3.jpg" alt=""></a>
+							</div>
+							<div class="popular-grid">
+								<a href="single.html"><img src="/static/its/images/p4.jpg" alt=""></a>
+							</div>
+							<div class="popular-grid">
+								<a href="single.html"><img src="/static/its/images/p1.jpg" alt=""></a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</footer>
+	<!-- //footer -->
+	<!-- copyright -->
+	<div class="agileits-w3layouts">
+		<div class="container">
+			<p>© 2017 Agrico Farm. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+		</div>
+	</div>
+	<!-- //copyright -->
+	<script src="/static/its/js/SmoothScroll.min.js"></script>
+	<script type="text/javascript" src="/static/its/js/move-top.js"></script>
+	<script type="text/javascript" src="/static/its/js/easing.js"></script>
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+	<!-- //here ends scrolling icon -->
+</body>	
+</html>

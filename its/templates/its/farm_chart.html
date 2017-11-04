@@ -1,0 +1,169 @@
+<html>
+<head>
+    <link href="http://code.google.com//apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css">
+    <script  src="http://code.jquery.com/jquery-1.7.2.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.10&sensor=false&.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi?.js"></script>
+    <script type="text/javascript">
+        google.load( 'visualization', '1', { packages:['corechart'] });
+        ChartMarker.prototype = new google.maps.OverlayView;
+        ChartMarker.prototype.onAdd = function() {
+            $( this.getPanes().overlayMouseTarget ).append( this.$div );
+        };
+
+        ChartMarker.prototype.onRemove = function() {
+            this.$div.remove();
+        };
+
+        ChartMarker.prototype.draw = function() {
+            var marker = this;
+            var projection = this.getProjection();
+            var position = projection.fromLatLngToDivPixel( this.get('position') );
+
+            this.$div.css({
+                left: position.x,
+                top: position.y,
+                display: 'block'
+            })
+
+            this.$inner
+                    .html( '<img src="' + this.get('image') + '"/>' )
+                    .click( function( event ) {
+                        var events = marker.get('events');
+                        events && events.click( event );
+                    });
+
+            this.chart = new google.visualization.PieChart( this.$inner[0] );
+            this.chart.draw( this.get('chartData'), this.get('chartOptions') );
+        };
+
+
+        function drawChart(marker, data, event, location) {
+
+
+            var options = {'title':'Event : '+event+'  Location : '+location,
+                'width':100,
+                'height':50,
+                slices: {0: {color: 'orange'}, 1:{color: 'green'}, 2:{color: 'yellow'}, 3: {color: 'blue'}, 4:{color: 'red'}}};
+
+            var node        = document.createElement('div'),
+                    infoWindow  = new google.maps.InfoWindow(),
+                    chart       = new google.visualization.PieChart(node);
+            chart.draw(data, options);
+            infoWindow.setContent(node);
+            infoWindow.open(marker.getMap(),marker);
+        }
+        function ChartMarker( options ) {
+            this.setValues( options );
+            this.$inner = $('<div>').css({
+                position: 'relative',
+                left: '-50%', top: '-50%',
+                width: options.width,
+                height: options.height,
+                fontSize: '1px',
+                lineHeight: '1px',
+                padding: '2px',
+                backgroundColor: 'transparent',
+                cursor: 'default'
+            });
+            this.$div = $('<div>')
+                    .append( this.$inner )
+                    .css({
+                        position: 'absolute',
+                        display: 'none'
+                    });
+        };
+      var infoWindow;
+        function initialize() {
+            var latLng = new google.maps.LatLng(13.5242, 79.9958)
+            var markers = [
+                [ 13.5245, 79.9957, 50,40,21,40,20],
+		[13.5236,79.9957,2,1,1,1,1],
+
+            ];
+            var mapOptions = {
+                center: latLng,
+                zoom: 18,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"),
+                    mapOptions);
+
+    var A={{lat}};
+  var B={{lon}};
+  var farm_id={{farm_id}};
+  var farm_area={{farm_area}};
+
+
+    B.forEach(function(element,index){
+    coords = [];
+    var x = element.length;
+    for(var j=0;j<x;j++)
+    {
+      coords.push({lat:A[index][j],lng:B[index][j]});
+    }
+    console.log(coords);
+    var bermudaTriangle = new google.maps.Polygon({
+        paths: coords,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+        fillColor: '#FF0000',
+        fillOpacity: 0
+    });
+          bermudaTriangle.setMap(map);
+    bermudaTriangle.addListener('click', (event)=>{
+
+      var contentString = '<b>'+'Farm Id:'+'</b>' + farm_id[index] + '<br>' + '<b>'+'Farm Area:' + '</b>'+ farm_area[index] + 'acres' + '<br>';
+      infoWindow.setContent(contentString);
+      infoWindow.setPosition(event.latLng);
+      infoWindow.open(map);
+    });
+
+  });
+        infoWindow = new google.maps.InfoWindow;
+      }
+
+
+
+            for(var k=0;k<markers.length;k++){
+                var location = new google.maps.LatLng(markers[k][0],markers[k][1])
+                var data = google.visualization.arrayToDataTable([
+                    [ 'Crop', 'Acres' ],
+                    [ 'Rice', markers[k][2] ],
+                    [ 'Wheat', markers[k][3] ],
+                    [ 'Maize',markers[k][4] ],
+                    [ 'SugarCane', markers[k][5] ],
+                    [ 'Barley', markers[k][6] ]
+                ]);
+                var options = {
+                    fontSize: 8,
+                    backgroundColor: 'transparent',
+                    legend: {position: 'none'}
+                };
+                (function(location,data){
+    var marker = new ChartMarker({
+                        map: map,
+                        position: location,
+                        width: '100px',
+                        height: '100px',
+                        chartData: data,
+                        chartOptions: options,
+                        events: {
+                            click: function( event ) {
+                                drawChart(marker,data)
+                            }
+                        }
+                    });
+
+})(location,data);
+            }
+        };
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+<body >
+<div id="map_canvas" style="width: 100%; height: 100%;"></div>
+</body>
+</html>
